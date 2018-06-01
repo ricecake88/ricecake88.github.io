@@ -16,7 +16,7 @@ After watching the CLI Gem Walkthrough with Avi, I knew I had to wittle down my 
 
 **Watching the video helped guide me**
 
-The most important take-away from watching the video is something I'm going to have to change in how I approach my projects is to first work on basic functionality first. I shouldn't have worked on the scraper. I should have set out the basic functionality of what I wanted in my CLI program, as Avi had outlined for his Daily Deal. Dealing with loads of data in the beginning would have been too much to code with, and so I felt that stubbing out information to make sure your Classes work seems to be the most logical step.
+The most important take-away from watching the video is something I'm going to have to change in how I approach my projects. I have to first work on basic functionality before jumping into something that would impede my development later. I shouldn't have worked on the scraper. I should have set out the basic functionality of what I wanted in my CLI program, as Avi had outlined for his Daily Deal. Dealing with loads of data in the beginning would have been too much to code with, and so I felt that stubbing out information to make sure your Classes work seemed to be the most logical step.
 
 Outlining what I wanted my CLI program to do and how it would interact with the user was the very first step.
 - Spit out a menu for the user upon running the program with a list of options
@@ -27,14 +27,15 @@ Outlining what I wanted my CLI program to do and how it would interact with the 
  4. an option of listing all the actors with upcoming movies for this month
  5. an option of listing all the actors with upcoming movies for the rest of the year
  6. a submenu of listing more information about a certain actor
+ 7. ability for user to quit the program
 
 If time permitted I would give the option to the user to list certain genres of movies and distributors. (Later note: I didn't have enough time, but want to revisit this!)
 
-**The difficulties with deciding which page to scrape.**
+**The difficulties with deciding which page to scrape**
 
-The IMDB "coming soon" page organizes their movies by date but leaving off the year. I made the mistake of scraping the month and date from this page, leaving the year empty which posed a problem. It was already a problem that the date was on the same level as the movie information, which required a bit of creativity to be able to create a new Movie object with the required base information (of date and title)
+The IMDB "coming soon" page organizes their movies by date but leave off the year. I made the mistake of scraping the month and date from this page, leaving the year empty which posed a problem. Scraping the page for the date and storing the date for each movie was already a challenge given that the date was on the same tree level as the movie information, which required a bit of creativity. I expand on this problem further down the page.
 
-The solution was to scrape the individual movie profile page, but I felt it required a reworking of getting the data into the movie database, and nothing else was accomplished yet so I left that as pending while I decided that changing my stub actor strings into Actor Objects was more important to focus on.
+The solution was to scrape the individual movie profile page for the release date, but I felt it required a reworking of getting the data into the movie database, and nothing else in my project was accomplished yet so I left that as pending to-do item while I decided that changing my stub actor strings into Actor Objects was a higher priority.
 
 **Disaster in "How Many Through"**
 
@@ -48,7 +49,7 @@ if !a.movies.any?{|movie| moveInstance.name ==movie.name}
 end
 ```
 
-Instead of the expected order of :
+However, instead of the expected order of :
 ```
 <Movie Object #id1 
 @name="Sleepless in Seattle"
@@ -72,9 +73,9 @@ I got something like this:
 >
 ```
 
-That would prove to be disastrous and just wrong when I looked at a single movie object. The movie information would be wrong everytime a new Actor was created. It would have a list of all the previous actors that were added but none of the ones after it.
+That would prove to be disastrous and just wrong when I looked at a single movie object. The movie information would be wrong everytime a new Actor was created. It would have a list of all the previous actors that were added but none of the ones after it. It would have been fine if I had just decided to add the movie.name to the movie array belonging to the Actors, but it's another story when you're adding to an array of Movie Objects where it relates to back to the actor.
 
-After thinking it through, I felt it was best to create all the actors while I scraped each actor names, but not add the array of actors until all the scraping of the cast was retrieved.  So the new code looked like this:
+After thinking it through, I felt the best solution was to create all the actors while I scraped each actor names, but not add the array of actors until all the scraping of the cast was retrieved.  So the new code looked like this:
 
 ```
 if releaseDate != nil && movie != nil 
@@ -133,7 +134,7 @@ class UpcomingMovies::Scraper
                 month = dateInfo[0]
                 date = dateInfo[1].gsub(/\u00A0/, "")
             end
-            binding.pry
+
           if releaseDate != nil && movie != nil 
             m = UpcomingMovies::Movie.new({:name=>movie, :month=>month, :date=>date,
                  :year=>"2018", :url=>profile_url })
@@ -146,18 +147,43 @@ class UpcomingMovies::Scraper
          
     end
 ```
+
+Specifically this section:
+```
+        titles.each do |node|
+
+            if node.attributes["class"] == nil
+                movie = "#{node.text}"
+                profile_url = node.children[0].attributes["href"].value
+        
+            elsif node.attributes["class"].value == "li_group"
+                releaseDate = "#{node.text}"
+                dateInfo = releaseDate.split(" ")
+                month = dateInfo[0]
+                date = dateInfo[1].gsub(/\u00A0/, "")
+            end
+
+          if releaseDate != nil && movie != nil 
+            m = UpcomingMovies::Movie.new({:name=>movie, :month=>month, :date=>date,
+                 :year=>"2018", :url=>profile_url })
+
+            ...
+						
+          end
+        end
+```
 		
 **Slowly adding to the Movie Class**
 
-After having populated the actors array with Actor objects, I wanted to fill out more information for the movies - getting the description, the rating and genres as an array. As a future todo, I wanted to store the genres into a Genre Class, but felt that I should move forward in refactoring my code first since I didn't think I would have time to finish writing up Genres (because, spending way too much time on a project is a real thing!)
+After having populated the actors array with Actor objects,  and being able to retrieve movies of actors and actors with movies, I could move on by getting more attributes for the movies. That meant getting the description, the rating and genres. As a future todo, I wanted to store the genres into a Genre Class, but felt that I should move forward in refactoring my code first since I didn't think I would have time to finish writing up Genres (because, spending way too much time on a project is a real thing!)
 
-**Refactoring CLI Class**
+## Refactoring CLI Class
 
 In my CLI class, I was doing too many calculations in order to display movies in a specified time frame (week, current month or all). Knowing that the CLI class is essentially the "View" in MVC which should only be concerned with showing the data and not working with generating data, I had to move the methods that dealt with retrieving what date was the next Friday and what month we were currently in elsewhere. I did not feel like it belonged anywhere in my existing code.
 
 It had two problems:
-1. Contained code that didn't have anything to do with CLI - #current_month_year, #date_of_next_friday and #futureMovie?
-2. list_movies_month and list_movies_week did not simply just print out the list of movies, it still processed and operated on the data to decide which list to print
+1. Contained code that didn't have anything to do with CLI - **#current_month_year**, **#date_of_next_friday** and **#futureMovie**?
+2. **#listmoviesmonth** and **#list_movies_week** did not simply just print out the list of movies, it still processed and operated on the data to decide which list to print
 
 Ugly code.. yes?
 
@@ -208,9 +234,9 @@ Ugly code.. yes?
     end
 
     def list_movies_month
-        currentInfo = currentMonthYear
+        current_info = current_month_year
         UpcomingMovies::Movie.all.each do |movie|
-            if movie.month == currentInfo[0] && movie.year == currentInfo[1]
+            if movie.month == current_info[0] && movie.year == current_info[1]
                 puts "#{movie.month} #{movie.date} #{movie.name}"
             end
         end
@@ -226,9 +252,7 @@ Ugly code.. yes?
 ```
 		
 
-But where could I move it to? I knew I could write class methods to retrieve all the movies that were being released in the current month, or this and the next Friday that way the CLI could just output the movie information directly without worrying about what to print and what not to print. 
-
-But the methods of currentMonthYear and date_of_next_Friday didn't seem like it belonged in the Movie Class either. They were helper methods. This resulted in the idea of creating a Helper module to store the the helper methods, and I could call them from any class, though it would mostly be used by the Movie Class in my program.
+But where could I move it to? I knew I could write class methods to return the list of upcoming movies in the timeframe I wanted in the Movie class. But the methods of **#current_month_year** and **#date_of_next_Friday** didn't seem like it belonged in the Movie class either. They were helper methods. This resulted in the idea of creating a Helper module to store the the helper methods, and I could call them from any class, though it would mostly be used by the Movie class in my program.
 
 Resulting Helper Module:
 ```
@@ -264,15 +288,15 @@ module Helper
     end
 end
 ```
-After moving the methods to the Helper Module and moving the current_month_year and date_of_next_Friday class methods to the Helper module, I decided I could further compact listing the movies into one method and pass the curated arrays to the function as opposed to having multiple methods in the CLI class that processed the data, resulting in more readable code that would only do "one thing".
+After moving the methods to the Helper Module and moving **#current_month_year** and **#date_of_next_Friday** class methods to the Helper module, I decided I could further compact listing the movies into one method and pass the curated arrays to the methods as opposed to having multiple methods in the CLI class that processed the data, resulting in more readable code that would only be tasked on doing "one thing".
 
 ```
-def list_movies(movieArray)
-		if movieArray.length != 0
-				movieArray.each_with_index do |movie, index|
+def list_movies(movie_array)
+		if movie_array.length != 0
+				movie_array.each_with_index do |movie, index|
 						puts "#{index+1}. #{movie.month} #{movie.date} #{movie.name}"
 				end
-				sub_movie_menu(movieArray)
+				sub_movie_menu(movie_array)
 		else
 				puts "There are no upcoming movies for this time frame."
 		end
@@ -281,15 +305,15 @@ end
 
 Much better than the above example right? After organizing my list_movies method, I felt the same could be done with listing actors and simplified the methods down to the following:
 ```
-	def list_actors(actorArray)
-			if actorArray.length != 0
-					actorArray.sort! do |x,y|
+	def list_actors(actor_array)
+			if actor_array.length != 0
+					actor_array.sort! do |x,y|
 							x.name <=> y.name
 					end
-					actorArray.uniq.each_with_index do |actor, index|
+					actor_array.uniq.each_with_index do |actor, index|
 							puts "#{index+1}. #{actor.name}"
 					end
-					sub_actor_menu(actorArray)
+					sub_actor_menu(actor_array)
 			else
 					puts "There are no actors with upcoming movie releases in this time frame."
 			end
@@ -298,7 +322,7 @@ Much better than the above example right? After organizing my list_movies method
 
 **End.. but never the end**
 
-The program was at a place where I was satisfied with it. I knew I could spend a lot more time on the project if I wanted to and would hopefully come back to it sometime in the future. But for the purposes of my project, since the timeline for part-time students is 7 days, I felt like I didn't want to dwell too much about it since it's easy to go down the rabbit hole and spend months on it. Knowing that whatever I would learn in the future would help improve on what I have here and potentially move away from a command line into a web interface, I decided to stop and ask for an evaluation.
+The program was finally at a place where I was satisfied with it. I knew I could spend a lot more time on the project if I wanted to and would hopefully come back to it sometime in the future. But for the purposes of my project, since the timeline for part-time students is 7 days, I felt like I didn't want to dwell too much about it since it's easy to go down the rabbit hole and spend months on it. Knowing that whatever I would learn in the future would help improve on what I have here and potentially move away from a command line into a web interface, I decided to stop and ask for an evaluation.
 
 I scheduled a 1:1 session to get the opinion of a technical coach to see if what I had was sufficient enough to submit my code and to give me some feedback and see if my project was at a point where it was good enough to submission. Turns out it was! Thanks Dakota! After a few changes, and fixing up my README instructions and gem information, I think I'm ready to submit!
 
