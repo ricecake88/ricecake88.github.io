@@ -1,14 +1,14 @@
 ---
 layout: post
 title:      "Trials and Tribulations - CLI Gem Project"
-date:       2018-06-01 19:10:48 +0000
+date:       2018-06-01 15:10:49 -0400
 permalink:  trials_and_tribulations_-_cli_gem_project
 ---
 
 
 **Picking a project**
 
-As a huge lover of movies and one that is constantly looking up information on film, I thought I would attempt to make my own CLI project be based on upcoming films.
+As a huge lover of movies and one that is constantly looking up information on film, I thought I would attempt to make my own CLI project based on upcoming films.
 
 At first, like any other student, you start dreaming of all the features you want in your project. Me? I wanted to be able to look up actors in upcoming releases, which distributor distributed the film, and what genre the film was going to be, with all the information of run time, a blurb on what the movie was - the sky was going to be the limit!
 
