@@ -326,12 +326,17 @@ The program was finally at a place where I was satisfied with it. I knew I could
 
 I scheduled a 1:1 session to get the opinion of a technical coach to see if what I had was sufficient enough to submit my code and to give me some feedback and see if my project was at a point where it was good enough to submission. Turns out it was! Thanks Dakota! After a few changes, and fixing up my README instructions and gem information, I think I'm ready to submit!
 
+**...Nope, wait!**
+
+After realizing I might have to publish my gem into the Rubygem directory, I was not ready to bundle it. I decided to improve on the actor and movie submenu so that the program would repeatedly ask for the user input until the user decided they wanted to quit the menu. At the same time, I wanted more data and I also decided to continue scraping the rest of the pages as opposed to just the main page. After this, I decided it was finally polished enough for me to bundle and upload it as a gem. _Now_ to write up my README and video my walkthrough...
+
 **Things I would like to improve upon:**
+
 1. Calculate for all the possible movie releases next week, not only Friday.
-2. Allow the submenu to keep on asking whether or not a user wanted to look at another movie or actor's information before quitting out of the menu, until the user inputted "q" to quit out of the submenu.
 3. Place the genres into its own Genre classes
 4. Give a list of available genres for the user to choose from, then ouput the movies of that genre by the choice of the user.
 5. Give a list of distributors for the user to choose from, then output the movies of that distributor by the choice of the user. 
 - This item I thought would be easy to incorporate, but I have to scrape a child link from the movie profile page in order to retrieve this information, and search for the USA distributor, as IMDB lists all international distributors as well.
 6. After learning more, I'd like to make the scraping to be a little more efficient. Right now it is taking too long to scrape all the information.
-7. Scrape more than just the month of  "Coming Soon" releases. I was originally going to do all the pages listed in IMDB, but due to how long it took to scrape just the first page, I decided I would hold off on this idea, otherwise it would take possibly 10 minutes or more to scrape all the information, if scraping the one page was taking between 1-2 minutes. 
+7. Scrape more data for each actor. This action would take a long time, so I might actually decide just to scrape when the user asks for more information on the specific actor.
+8. Also, I noticed that not all movies were in the "Coming Soon" pages, since "Sandra Bullock" has two movies coming out this year, not just one, but only "Oceans8" was displayed. I'd theoretically like to scrape movies from each actors pages for movies in the future and add it to the Movies list. This isn't so easy though, but would make my program to be much more useful. Unfortunately it would be easy to go down the rabbit hole, because then I would then scrape information on the new movie that wasn't originally listed.
