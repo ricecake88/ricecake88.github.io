@@ -1,7 +1,7 @@
 ---
 layout: post
-title:      "Frustrations With Ruby, Shotgun, and the Rabbit Hole in Windows"
-date:       2018-12-31 02:03:08 +0000
+title:      "Frustrations With Ruby, Shotgun, and the Rabbit Hole Down Windows"
+date:       2018-12-30 21:03:09 -0500
 permalink:  frustrations_with_ruby_shotgun_and_the_rabbit_hole_in_windows
 ---
 
