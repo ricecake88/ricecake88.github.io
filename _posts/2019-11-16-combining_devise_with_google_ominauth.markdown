@@ -51,7 +51,7 @@ Running via Spring preloader in process 13854
      ```
 
 8. In addition, it will print out the following instructions:<br>
-     ```
+```
     Some setup you must do manually if you haven't yet:
 
   1. Ensure you have defined default url options in your environments files. Here is an example of default_url_options appropriate for a development environment in config/environments/development.rb:
@@ -66,7 +66,7 @@ Running via Spring preloader in process 13854
        <p class="alert"><%= alert %>
   4. You can copy Devise views (for customization) to your app by running:
        rails g devise:views
-     ```
+```
 
 
 9. Follow steps 1 through 4 of the instructions output. Note that for step 4, if you want your views to be located and associated with a different folder other than "devise", for example "users", you would want to enter in the following format:<br>
