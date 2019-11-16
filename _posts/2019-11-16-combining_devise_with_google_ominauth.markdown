@@ -28,8 +28,9 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 3. Enter into the following into the command to install the devise gem: <br>
     `$bundle update`
 
-4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. 
-     <p>Since this is for a new project, I decided that my root would be `pages#index`. </p>
+4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. <br>
+     <p>*Example:</p>
+     <p>Since this is for a new project, I decided that my root would be `pages#index`. <br>
      <p>This required I set up `app/controllers/pagescontroller.rb` with the following content:</p>
       ```ruby
 class PagesController < ApplicationController
@@ -80,7 +81,8 @@ Running via Spring preloader in process 13854
 
 11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says *It is imperative that you take a look at it*. This file is: `config/initializers/devise.rb`
 
-12. Devise then needs a model that matches up with the equivalent of what you would like to name the users of your application to be called, typically called "User". Entering the following command will create this model and configures it with the default Devise modules.`$rails generate devise <MODEL_NAME>`
+12. Devise then needs a model that matches up with the equivalent of what you would like to name the users of your application to be called, typically called "User". Entering the following command will create this model and configures it with the default Devise modules.<br>
+       `$rails generate devise <MODEL_NAME>`
 
 13. The above command automatically creates and adds a lot of files and code. Here are a few items that it adds:
  * the generator configures the routes file in `config/routes.rb` (if your model and migration is :users).
@@ -92,7 +94,8 @@ Running via Spring preloader in process 13854
        `$rake db:migrate`
 
 15. Verify the routes that were created by entering the following:<br>
-       `$rake routes`The routes should look like the following:
+       `$rake routes`
+			 <p>The routes should look like the following:</p>
        ```ruby
     Prefix Verb   URI Pattern                                                                              Controller#Action
                      root GET    /                                                                                        pages#index
