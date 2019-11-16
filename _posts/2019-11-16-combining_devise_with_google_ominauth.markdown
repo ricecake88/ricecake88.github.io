@@ -133,15 +133,14 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 ### Installing the Required Gems
 
 1. Modify the Gemfile by add omniauth-google-oauth2, thin, and dotenv-rails. 
-    * *Omniauth-google-oauth2* is the gem required to install the Google OmniAuth files. 
-    *  *Thin* allows one to launch your application securely using https. 
-    *  *Dotenv-rails* is the gem that supports reading .env files (where the credentials will be stored)
-    ```ruby
+     * *Omniauth-google-oauth2* is the gem required to install the Google OmniAuth files. 
+     *  *Thin* allows one to launch your application securely using https. 
+     *  *Dotenv-rails* is the gem that supports reading .env files (where the credentials will be stored)
+     ```ruby
     gem 'omniauth-google-oauth2'
     gem 'thin'
     gem 'dotenv-rails'
-    ```
-
+     ```
 
 2. Enter the following to install the above gems.<br>
     `$bundle update`
