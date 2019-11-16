@@ -20,7 +20,7 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 ## Installing and Configuring Devise
 
 1. Create a brand new rails project by entering the following command: <br/>
-`$rails new <project_name>`<br/>
+     `$rails new <project_name>`<br/>
 
 2.  Install the devise gem by updating your Gemfile with the following line: 
 `gem 'devise'`
