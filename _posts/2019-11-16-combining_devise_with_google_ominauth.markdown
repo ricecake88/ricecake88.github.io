@@ -30,7 +30,7 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. 
      <p>Since this is for a new project, I decided that my root would be `pages#index`. </p>
-     <p>This required I set up *app/controllers/pages_controller.rb* with the following content:</p>
+     <p>This required I set up `app/controllers/pagescontroller.rb` with the following content:</p>
       ```
 class PagesController < ApplicationController
     def index
@@ -38,20 +38,22 @@ class PagesController < ApplicationController
 end
      ```
 
-5. Add some text into the root view file app/views/pages/index.html.erb so when a user logs in, they can tell they have logged in. Like, "Welcome!"
+5. Add some text into the root view file `app/views/pages/index.html.erb` so when a user logs in, they can tell they have logged in. Like, "Welcome!"
 
-6. Now we need to install devise in your project using a generate. Enter the following: `$rails generate devise:install`
+6. Now we need to install devise in your project using a generate. Enter the following: <br>
+    `$rails generate devise:install`
 
-7. The above command will create the devise model and configuration file, in the following paths along with this printout:  
-```
+7. The above command will create the devise model and configuration file, in the following paths along with this printout:  <br>
+     ```
 Running via Spring preloader in process 13854
       create  config/initializers/devise.rb
       create  config/locales/devise.en.yml
-```
+     ```
 
 8. In addition, it will print out the following instructions:
-Some setup you must do manually if you haven't yet:
-```
+     ```
+    Some setup you must do manually if you haven't yet:
+
   1. Ensure you have defined default url options in your environments files. Here is an example of default_url_options appropriate for a development environment in config/environments/development.rb:
        config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
      In production, :host should be set to the actual host of your application.
@@ -64,7 +66,7 @@ Some setup you must do manually if you haven't yet:
        <p class="alert"><%= alert %>
   4. You can copy Devise views (for customization) to your app by running:
        rails g devise:views
-```
+    ```
 
 
 9. Follow steps 1 through 4 of the instructions output. Note that for step 4, if you want your views to be located and associated with a different folder other than "devise", for example "users", you would want to enter in the following format:`$rails generate devise:views <name_of_folder_other_than_devise>`
