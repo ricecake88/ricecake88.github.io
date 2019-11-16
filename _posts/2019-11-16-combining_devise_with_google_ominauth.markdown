@@ -29,7 +29,7 @@ Below are the instructions needed to use Devise individual sign-up / login with 
     `$bundle update`
 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. <br>
-     <p>*Example:</p>
+     <p>*Example*:</p>
      <p>Since this is for a new project, I decided that my root would be `pages#index`. <br>
      <p>This required I set up `app/controllers/pagescontroller.rb` with the following content:</p>
       ```ruby
