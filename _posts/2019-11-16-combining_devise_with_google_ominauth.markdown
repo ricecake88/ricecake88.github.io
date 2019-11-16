@@ -31,7 +31,7 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. 
      <p>Since this is for a new project, I decided that my root would be `pages#index`. </p>
      <p>This required I set up `app/controllers/pagescontroller.rb` with the following content:</p>
-      ```
+      ```rails
 class PagesController < ApplicationController
     def index
     end
@@ -44,7 +44,7 @@ end
     `$rails generate devise:install`
 
 7. The above command will create the devise model and configuration file, in the following paths along with this printout:  <br>
-     ```
+     ```rails
 Running via Spring preloader in process 13854
       create  config/initializers/devise.rb
       create  config/locales/devise.en.yml
