@@ -31,7 +31,7 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. 
      <p>Since this is for a new project, I decided that my root would be `pages#index`. </p>
      <p>This required I set up `app/controllers/pagescontroller.rb` with the following content:</p>
-      ```rails
+      ```ruby
 class PagesController < ApplicationController
     def index
     end
@@ -44,7 +44,7 @@ end
     `$rails generate devise:install`
 
 7. The above command will create the devise model and configuration file, in the following paths along with this printout:  <br>
-     ```rails
+     ```ruby
 Running via Spring preloader in process 13854
       create  config/initializers/devise.rb
       create  config/locales/devise.en.yml
@@ -78,14 +78,14 @@ Running via Spring preloader in process 13854
        <p>Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>` </p>
 			 <p>If you want the controllers to be under "devise" then no name needs to be specified after "devise::controllers".</p>
 
-11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says '**It is imperative that you take a look at it**.'. This file is: `'config/initializers/devise.rb'`
+11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says '**It is imperative that you take a look at it**.'. This file is: `config/initializers/devise.rb`
 
 12. Devise then needs a model that matches up with the equivalent of what you would like to name the users of your application to be called, typically called "User". Entering the following command will create this model and configures it with the default Devise modules.`$rails generate devise <MODEL_NAME>`
 
 13. The above command automatically creates and adds a lot of files and code. Here are a few items that it adds:
- * the generator configures the routes file in "`config/routes.rb`" (if your model and migration is :users).
+ * the generator configures the routes file in `config/routes.rb` (if your model and migration is :users).
  *  `devise_for :users`
- *  In addition, it creates all the devise views under "views/users"
+ *  In addition, it creates all the devise views under `views/users`
  *  Creates a migration in which it adds devise to user, adding the fields for email, encrypted password, tokens, etc.
 
 14.  Run the latest migrations by entering: `$rake db:migrate`
@@ -116,14 +116,14 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
      rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 ```
 
-
 16. To see and understand the devise gem more in depth, visit this [page](https://www.sitepoint.com/devise-authentication-in-depth/).
 
 ## Installing OmniAuth and Google to work with Devise (Separate sign-in AND Option to Log In with Google)
 
 ### Installing the Required Gems
 
-1. Modify the Gemfile by add omniauth-google-oauth2, thin, and dotenv-rails. *  *Omniauth-google-oauth2* is the gem required to install the Google Omniauth files. 
+1. Modify the Gemfile by add omniauth-google-oauth2, thin, and dotenv-rails. 
+    * *Omniauth-google-oauth2* is the gem required to install the Google OmniAuth files. 
     *  *Thin* allows one to launch your application securely using https. 
     *  *Dotenv-rails* is the gem that supports reading .env files (where the credentials will be stored)
     ```
@@ -134,18 +134,18 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 
 
 2. Enter the following to install the above gems.<br>
-`$bundle update`
+    `$bundle update`
 
 ## Add OmniAuth to model Users 
 3. Going from the above Devise instructions, since our model for users is named User, we need to add OmniAuth columns to the model to support the fields required for OmniAuth. 
      Make a note of all the properties you might like to store from Google and add it to the end of the following command.      Or, you can just leave the command as is:<br>
 		 `$bin/rails g migration AddOmniauthToUsers provider:string uid:string token:string expires_at:integer expires:boolean refresh_token:string`
 
-4. Run the migration to add the omniauth columns to the User model<br>
+4. Run the migration to add the OmniAuth columns to the User model<br>
     `$bin/rails db:migrate`
 
-5. Having added those new fields to the User model, we need to modify the model to support and handle OmniAuth. Currently, the '`app/models/user.rb`' look like the below with the devise modifications.
-     ```
+5. Having added those new fields to the User model, we need to modify the model to support and handle OmniAuth. Currently, the `app/models/user.rb` look like the below with the devise modifications.
+     ```ruby
 	class User < ApplicationBase
 			devise :database_authenticatable, :registerable,
 						 :recoverable, :rememberable, :trackable, :validatable
@@ -154,7 +154,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 
 
     Under 'app/models/user.rb', modify the class to look like the following in order to support and handle OmniAuth.
-    ```
+    ```ruby
 	class User < ApplicationBase
 			devise :database_authenticatable, :registerable,
 						 :recoverable, :rememberable, :trackable, :validatable
@@ -176,7 +176,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
      ```
 
 
-6. Adding "devise :omniauthable", is to tell Devise that it's an Omniauthable model and has other functionality on top of the normal devise methods. Also added the class method "`from_omniauth`". We receive a hash that includes the authentication parameter which we pass to the method ("auth" is the variable in the above example) that we receive from Google. By using that hash we will then be able to create a User from it.
+6. Adding `devise :omniauthable`, is to tell Devise that it's an Omniauthable model and has other functionality on top of the normal devise methods. Also added the class method "`from_omniauth`". We receive a hash that includes the authentication parameter which we pass to the method ("auth" is the variable in the above example) that we receive from Google. By using that hash we will then be able to create a User from it.
 
 ### Getting the Credentials from Google Developer Console
 
@@ -196,34 +196,37 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 
 14. For our project purposes, we're creating a Web application. Since we're using the OAuth 2.0 protocol, Google generates an access token for our application, so select "Web Application".
             a) Fill in name for the Web Client
-            b) The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". The origin URL is the URI in which requests from a  browser. The redirect URI is, from the Google page: "*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"
-                 For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)
-`        https://localhost:3000`
+            b) The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". 
+						    The origin URL is the URI in which requests from a  browser. 
+								The redirect URI is, from the Google page: 
+								"*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"
+                 For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)<br>
+								 ```https://localhost:3000`
                  For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.
             c) click "Create"
 15. Google will now popup with a page that says "OAuth client". Copy the fields from "client ID" and "client secret"
 
 ### Setting Client Credentials to Environment Variables
 
-16. Going back to your development area, in the root folder '/', create a ".env" file. In the file, enter the following:```
+16. Going back to your development area, in the root folder '/', create a ".env" file. In the file, enter the following:
+       ```ruby
         GOOGLE_CLIENT_ID=<xxxxxx>
         GOOGLE_CLIENT_SECRET_KEY=<yyyyyy>
-```
+       ```
 
-        xxxxxx is the "client ID"  and yyyyyy is the "client secret" that you copied from the steps above from the Google Developer Console.
+        `xxxxxx` is the "client ID"  and `yyyyyy` is the "client secret" that you copied from the steps above from the Google Developer Console.
 17.  Make sure you add "*.env*" to your "*.gitignore*" file so that it doesn't mistakenly get committed and added to the repo. However, just remember that every time you pull a new clone from your github repository (or similar service), you need to re-create the .env file again.
 
 ## Configuring Devise to use the Correct Credentials
 
 ## Setting up the routes
 
-18.  In "config/routes.rb" set up the routes required for devise by adding:
-
-    devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+18.  In `config/routes.rb` set up the routes required for devise by adding:<br>
+       `devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }`
 		
-19. This lets Devise set the the OAuth2 callback to the omniauth_callback controller. We need to create  `app/controllers/users/omniauth_callbacks_controller.rb`. 
-And then enter the following:
-```
+19. This lets Devise set the the OAuth2 callback to the omniauth_callback controller. We need to create `app/controllers/users/omniauth_callbacks_controller.rb`. 
+       And then enter the following:
+       ```ruby
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def google_oauth2
@@ -239,19 +242,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end
 end
 ```
-The action name needs to match the omniauth one is using. In our case, it is the google_oauth2, so our action name is called "google_oauth2"
 
-20. In the OmniAuthsection in "`config/initializers/devise.rb`", add the following:
-`config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET_KEY'], {:name => "google_oauth2", scope: 'userinfo.email, userinfo.profile'}`
+         The action name needs to match the omniauth one is using. In our case, it is the google_oauth2, so our action name is called "google_oauth2"
 
-21. Also change config.scoped_views from false to true. This allows for custom views (the views under app/users/views/) instead of using devise's default views.`config.scoped_views = true`
+20. In the OmniAuthsection in `config/initializers/devise.rb`, add the following:
+       `config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET_KEY'], {:name => "google_oauth2", scope: 'userinfo.email, userinfo.profile'}`
+
+21. Also change config.scoped_views from false to true. This allows for custom views (the views under app/users/views/) instead of using devise's default views.<br>
+      `config.scoped_views = true`
 
 
 22. Add the following to "app/controllers/application_controller.rb"
-```
+       ```
     protect_from_forgery prepend: true
     before_action :authenticate_user!   
-```
+       ```
 
 23. Create "app/controllers/sessions_controller.rb"
 ```
