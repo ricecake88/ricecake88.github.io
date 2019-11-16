@@ -78,7 +78,7 @@ Running via Spring preloader in process 13854
        <p>Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>` </p>
 			 <p>If you want the controllers to be under "devise" then no name needs to be specified after "devise::controllers".</p>
 
-11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says '**It is imperative that you take a look at it**.'. This file is: `config/initializers/devise.rb`
+11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says *It is imperative that you take a look at it*. This file is: `config/initializers/devise.rb`
 
 12. Devise then needs a model that matches up with the equivalent of what you would like to name the users of your application to be called, typically called "User". Entering the following command will create this model and configures it with the default Devise modules.`$rails generate devise <MODEL_NAME>`
 
@@ -88,10 +88,12 @@ Running via Spring preloader in process 13854
  *  In addition, it creates all the devise views under `views/users`
  *  Creates a migration in which it adds devise to user, adding the fields for email, encrypted password, tokens, etc.
 
-14.  Run the latest migrations by entering: `$rake db:migrate`
+14.  Run the latest migrations by entering: <br>
+       `$rake db:migrate`
 
-15.  Verify the routes that were created by entering the following:`$rake routes`The routes should look like the following:
-```
+15. Verify the routes that were created by entering the following:<br>
+       `$rake routes`The routes should look like the following:
+       ```ruby
     Prefix Verb   URI Pattern                                                                              Controller#Action
                      root GET    /                                                                                        pages#index
          new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
@@ -126,7 +128,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
     * *Omniauth-google-oauth2* is the gem required to install the Google OmniAuth files. 
     *  *Thin* allows one to launch your application securely using https. 
     *  *Dotenv-rails* is the gem that supports reading .env files (where the credentials will be stored)
-    ```
+    ```ruby
     gem 'omniauth-google-oauth2'
     gem 'thin'
     gem 'dotenv-rails'
@@ -136,7 +138,8 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 2. Enter the following to install the above gems.<br>
     `$bundle update`
 
-## Add OmniAuth to model Users 
+### Add OmniAuth to model Users 
+
 3. Going from the above Devise instructions, since our model for users is named User, we need to add OmniAuth columns to the model to support the fields required for OmniAuth. 
      Make a note of all the properties you might like to store from Google and add it to the end of the following command.      Or, you can just leave the command as is:<br>
 		 `$bin/rails g migration AddOmniauthToUsers provider:string uid:string token:string expires_at:integer expires:boolean refresh_token:string`
@@ -153,7 +156,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
     ```
 
 
-    Under 'app/models/user.rb', modify the class to look like the following in order to support and handle OmniAuth.
+    Under `app/models/user.rb`, modify the class to look like the following in order to support and handle OmniAuth.
     ```ruby
 	class User < ApplicationBase
 			devise :database_authenticatable, :registerable,
@@ -176,7 +179,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
      ```
 
 
-6. Adding `devise :omniauthable`, is to tell Devise that it's an Omniauthable model and has other functionality on top of the normal devise methods. Also added the class method "`from_omniauth`". We receive a hash that includes the authentication parameter which we pass to the method ("auth" is the variable in the above example) that we receive from Google. By using that hash we will then be able to create a User from it.
+6. Adding `devise :omniauthable`, is to tell Devise that it's an Omniauthable model and has other functionality on top of the normal devise methods. Also added the class method `from_omniauth`. We receive a hash that includes the authentication parameter which we pass to the method ("auth" is the variable in the above example) that we receive from Google. By using that hash we will then be able to create a User from it.
 
 ### Getting the Credentials from Google Developer Console
 
@@ -194,16 +197,17 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 
 13. Select "Create Credentials" and choose "OAuth client ID".
 
-14. For our project purposes, we're creating a Web application. Since we're using the OAuth 2.0 protocol, Google generates an access token for our application, so select "Web Application".
-            a) Fill in name for the Web Client
-            b) The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". 
-						    The origin URL is the URI in which requests from a  browser. 
-								The redirect URI is, from the Google page: 
+14. For our project purposes, we're creating a Web application. Since we're using the OAuth 2.0 protocol, Google generates an access token for our application, so select "Web Application".<br>
+            a) Fill in name for the Web Client<br>
+            b) The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". <br>
+						    The origin URL is the URI in which requests from a  browser. <br>
+								The redirect URI is, from the Google page: <br>
 								"*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"
                  For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)<br>
 								 ```https://localhost:3000`
-                 For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.
-            c) click "Create"
+                 For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.<br>
+            c) click "Create"<br>
+
 15. Google will now popup with a page that says "OAuth client". Copy the fields from "client ID" and "client secret"
 
 ### Setting Client Credentials to Environment Variables
@@ -215,6 +219,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
        ```
 
         `xxxxxx` is the "client ID"  and `yyyyyy` is the "client secret" that you copied from the steps above from the Google Developer Console.
+	
 17.  Make sure you add "*.env*" to your "*.gitignore*" file so that it doesn't mistakenly get committed and added to the repo. However, just remember that every time you pull a new clone from your github repository (or similar service), you need to re-create the .env file again.
 
 ## Configuring Devise to use the Correct Credentials
@@ -227,23 +232,23 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 19. This lets Devise set the the OAuth2 callback to the omniauth_callback controller. We need to create `app/controllers/users/omniauth_callbacks_controller.rb`. 
        And then enter the following:
        ```ruby
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+      class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-    def google_oauth2
-        @user = User.from_omniauth(request.env["omniauth.auth"])        puts @user.errors.to_a
+      def google_oauth2
+           @user = User.from_omniauth(request.env["omniauth.auth"])        puts @user.errors.to_a
 
-        if @user.persisted?
-            flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
-            sign_in_and_redirect @user, :event => :authentication
-        else
-            session['devise.google_data'] = request.env['omniauth.auth'].except(:extra) # Removing extra as it can overflow some session stores
-            redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
-        end   
-		end
-end
-```
+            if @user.persisted?
+                 flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
+                 sign_in_and_redirect @user, :event => :authentication
+            else
+                 session['devise.google_data'] = request.env['omniauth.auth'].except(:extra) # Removing extra as it can overflow some session stores
+                 redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+            end   
+		   end
+    end
+       ```
 
-         The action name needs to match the omniauth one is using. In our case, it is the google_oauth2, so our action name is called "google_oauth2"
+       The action name needs to match the omniauth one is using. In our case, it is the google_oauth2, so our action name is called "google_oauth2"
 
 20. In the OmniAuthsection in `config/initializers/devise.rb`, add the following:
        `config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET_KEY'], {:name => "google_oauth2", scope: 'userinfo.email, userinfo.profile'}`
@@ -252,7 +257,7 @@ end
       `config.scoped_views = true`
 
 
-22. Add the following to "app/controllers/application_controller.rb"
+22. Add the following to `app/controllers/application_controller.rb`
        ```ruby
     protect_from_forgery prepend: true
     before_action :authenticate_user!   
@@ -266,31 +271,34 @@ class SessionsController < ApplicationController
 end
         ```
 
-24. Find the authorization path. You can view all the routes by entering: `$rake routes`
+24. Find the authorization path. You can view all the routes by entering:<br>
+       `$rake routes`
 25. Choose the prefix that includes the word "authorize" and "google_oauth2" in it. This is your google authorization path.
 26. Modify the link in which to sign into Google under `app/views/user/shared/links.html`. Remove the following code:
-```
+       ```ruby
           <%- if devise_mapping.omniauthable? %>
               <%- resource_class.omniauth_providers.each do |provider| %>
                    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", user_google_oauth2_omniauth_authorize_path(resource_name, provider) %><br />
                      <% end %>
           <% end %>
-```
- and replace it with the route that is the authorization path. `<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %><br />`
+       ```
+       and replace it with the route that is the authorization path.<br>
+			 `<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %><br />`
 
 26. Make sure to add to your root view  (the page that redirects the user to once they have properly logged in), a method for the user to log out.
-`<%= link_to "LogOut",  destroy_user_session_path, method: :delete %>`
+       `<%= link_to "LogOut",  destroy_user_session_path, method: :delete %>`
 
 27. Find the callback path by entering:
-`$rake routes`
+       `$rake routes`
 
 28. Choose the prefix that includes the word "callback", user_google_oauth2_omniauth_callback in our example. Copy its URI Pattern, which is /users/auth/google_oauth2/callback for our project.
 
-29.  Go back to the Developers Console. Select your project and click on "Credentials". Click on the pencil icon next to the name of your client which will edit its OAuth client. Append the URI Pattern to "https://localhost:3000", and add it as an entry. Remove the other entry. Example:
-`https://localhost:3000/users/auth/google_oauth2/callback`
+29.  Go back to the Developers Console. Select your project and click on "Credentials". Click on the pencil icon next to the name of your client which will edit its OAuth client. Append the URI Pattern to "https://localhost:3000", and add it as an entry. Remove the other entry. <br>
+         Example:<br>
+        `https://localhost:3000/users/auth/google_oauth2/callback`
 
-30. In your command console, enter:
-`$thin start --ssl`
+30. In your command console, enter:<br>
+       `$thin start --ssl`
 
 31. Navigate to [https://localhost:3000](https://localhost:3000) and now you should have your custom sign up form with a link to login with Google!
 
