@@ -54,10 +54,11 @@ Running via Spring preloader in process 13854
 ```
     Some setup you must do manually if you haven't yet:
 
-   1. Ensure you have defined default url options in your environments files. Here is an example of default_url_options appropriate for a development environment in config/environments/development.rb :
+   1. Ensure you have defined default url options in your environments files. 
+       Here is an example of default_url_options appropriate for a development environment in config/environments/development.rb :
        `config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }`
        In production, `:host` should be set to the actual host of your application.
-   2. Ensure you have defined `root_url` to a controller action in your config/routes.rb.
+   2. Ensure you have defined `root_url` to something in your config/routes.rb.
         For example:<br>
         `root to: "home#index"`
    3. Ensure you have flash messages in app/views/layouts/application.html.erb.
@@ -74,7 +75,7 @@ Running via Spring preloader in process 13854
 
 
 10. (Optional Step) If you plan on making modifications to the controllers, then you will want to enter the following command. If not, this step can be skipped (which is what I did for my project). 
-       <p>Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>`</p>
+       <p>Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>` </p>
 			 <p>If you want the controllers to be under "devise" then no name needs to be specified after "devise::controllers".</p>
 
 11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says '**It is imperative that you take a look at it**.'. This file is: `'config/initializers/devise.rb'`
@@ -123,33 +124,37 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 ### Installing the Required Gems
 
 1. Modify the Gemfile by add omniauth-google-oauth2, thin, and dotenv-rails. *  *Omniauth-google-oauth2* is the gem required to install the Google Omniauth files. 
-*  *Thin* allows one to launch your application securely using https. 
-*  *Dotenv-rails* is the gem that supports reading .env files (where the credentials will be stored)
-```
+    *  *Thin* allows one to launch your application securely using https. 
+    *  *Dotenv-rails* is the gem that supports reading .env files (where the credentials will be stored)
+    ```
     gem 'omniauth-google-oauth2'
     gem 'thin'
     gem 'dotenv-rails'
-```
+    ```
 
 
-2. Enter the following to install the above gems.`$bundle update`
+2. Enter the following to install the above gems.<br>
+`$bundle update`
 
 ## Add OmniAuth to model Users 
-3. Going from the above Devise instructions, since our model for users is named User, we need to add OmniAuth columns to the model to support the fields required for OmniAuth. Make a note of all the properties you might like to store from Google and add it to the end of the following command. Or, you can just leave the command as is:`$bin/rails g migration AddOmniauthToUsers provider:string uid:string token:string expires_at:integer expires:boolean refresh_token:string`
+3. Going from the above Devise instructions, since our model for users is named User, we need to add OmniAuth columns to the model to support the fields required for OmniAuth. 
+     Make a note of all the properties you might like to store from Google and add it to the end of the following command.      Or, you can just leave the command as is:<br>
+		 `$bin/rails g migration AddOmniauthToUsers provider:string uid:string token:string expires_at:integer expires:boolean refresh_token:string`
 
-4. Run the migration to add the omniauth columns to the User model`$bin/rails db:migrate`
+4. Run the migration to add the omniauth columns to the User model<br>
+    `$bin/rails db:migrate`
 
 5. Having added those new fields to the User model, we need to modify the model to support and handle OmniAuth. Currently, the '`app/models/user.rb`' look like the below with the devise modifications.
-```
+     ```
 	class User < ApplicationBase
 			devise :database_authenticatable, :registerable,
 						 :recoverable, :rememberable, :trackable, :validatable
 	end
-```
+    ```
 
 
- Under 'app/models/user.rb', modify the class to look like the following in order to support and handle OmniAuth.
-```
+    Under 'app/models/user.rb', modify the class to look like the following in order to support and handle OmniAuth.
+    ```
 	class User < ApplicationBase
 			devise :database_authenticatable, :registerable,
 						 :recoverable, :rememberable, :trackable, :validatable
@@ -168,7 +173,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
                 end
             end
    end
-```
+     ```
 
 
 6. Adding "devise :omniauthable", is to tell Devise that it's an Omniauthable model and has other functionality on top of the normal devise methods. Also added the class method "`from_omniauth`". We receive a hash that includes the authentication parameter which we pass to the method ("auth" is the variable in the above example) that we receive from Google. By using that hash we will then be able to create a User from it.
