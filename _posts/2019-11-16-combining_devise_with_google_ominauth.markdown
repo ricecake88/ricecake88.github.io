@@ -8,7 +8,7 @@ permalink:  combining_devise_with_google_ominauth
 
 On the recommendation of the section lead, I decided to try using "Devise" to do the authentication for gem users. 
 
-There are a lot of great user guides of how to use the devise gem, especially their own website: http://devise.plataformatec.com.br/
+There are a lot of great user guides of how to use the devise gem, especially their own website: [http://devise.plataformatec.com.br/](http://devise.plataformatec.com.br/)
 
 When it came to incorporating how to add an additional sign on from a third party provider for Google, it was a bit trickier and required a lot more digging around. And even when I did find some instructions from several places, I had to stitch them together, and they didn't really explain why certain code was used or the relation to existing code. There are a few sites that did outline how one might add multiple providers (ie. Google, Facebook, etc.) but I wanted to just focus on Google for my project.
 
@@ -28,8 +28,9 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 3. Enter into the following into the command to install the devise gem: <br>
     `$bundle update`
 
-4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. Since this is for a new project, I decided that my root would be` 'pages#index`'. <br>
-     This required I set up `app/controllers/pages_controller.rb` with the following content:
+4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. 
+     <p>Since this is for a new project, I decided that my root would be` 'pages#index`'. </p>
+     <p>This required I set up *app/controllers/pages_controller.rb* with the following content:</p>
       ```
 class PagesController < ApplicationController
     def index
