@@ -50,7 +50,7 @@ Running via Spring preloader in process 13854
       create  config/locales/devise.en.yml
      ```
 
-8. In addition, it will print out the following instructions:
+8. In addition, it will print out the following instructions:<br>
      ```
     Some setup you must do manually if you haven't yet:
 
@@ -66,13 +66,16 @@ Running via Spring preloader in process 13854
        <p class="alert"><%= alert %>
   4. You can copy Devise views (for customization) to your app by running:
        rails g devise:views
-    ```
+     ```
 
 
-9. Follow steps 1 through 4 of the instructions output. Note that for step 4, if you want your views to be located and associated with a different folder other than "devise", for example "users", you would want to enter in the following format:`$rails generate devise:views <name_of_folder_other_than_devise>`
+9. Follow steps 1 through 4 of the instructions output. Note that for step 4, if you want your views to be located and associated with a different folder other than "devise", for example "users", you would want to enter in the following format:<br>
+    `$rails generate devise:views <name_of_folder_other_than_devise>`
 
 
-10. (Optional Step) If you plan on making modifications to the controllers, then you will want to enter the following command. If not, this step can be skipped (which is what I did for my project). Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>` If you want the controllers to be under "devise" than no name needs to be specified after "devise::controllers".
+10. (Optional Step) If you plan on making modifications to the controllers, then you will want to enter the following command. If not, this step can be skipped (which is what I did for my project). 
+       <p>Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>`</p>
+			 <p>If you want the controllers to be under "devise" then no name needs to be specified after "devise::controllers".</p>
 
 11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says '**It is imperative that you take a look at it**.'. This file is: `'config/initializers/devise.rb'`
 
