@@ -19,11 +19,14 @@ Below are the instructions needed to use Devise individual sign-up / login with 
 
 ## Installing and Configuring Devise
 
-1. Create a brand new rails project by entering the following command: `$rails new <project_name>`
+1. Create a brand new rails project by entering the following command: 
+`$rails new <project_name>`
 
-2.  Install the devise gem by updating your Gemfile with the following line: `gem 'devise'`
+2.  Install the devise gem by updating your Gemfile with the following line: 
+`gem 'devise'`
 
-3. Enter into the following into the command to install the devise gem: `$bundle update`
+3. Enter into the following into the command to install the devise gem: 
+`$bundle update`
 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. Since this is for a new project, I decided that my root would be` 'pages#index`'. This required I set up `app/controllers/pages_controller.rb` with the following content:
 ```
