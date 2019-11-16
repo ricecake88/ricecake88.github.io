@@ -29,9 +29,12 @@ Below are the instructions needed to use Devise individual sign-up / login with 
     `$bundle update`
 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. <br>
-     **Example**:
-     Since this is for a new project, I decided that my root would be `pages#index`. <br>
-     This required I set up `app/controllers/pagescontroller.rb` with the following content:<br>
+    
+		 **Example**:<br>
+		 
+		 Since this is for a new project, I decided that my root would be `pages#index`. <br>
+     
+		 This required I set up `app/controllers/pagescontroller.rb` with the following content:<br>
       ```ruby
 class PagesController < ApplicationController
     def index
@@ -75,9 +78,11 @@ Running via Spring preloader in process 13854
     `$rails generate devise:views <name_of_folder_other_than_devise>`
 
 
-10. (Optional Step) If you plan on making modifications to the controllers, then you will want to enter the following command. If not, this step can be skipped (which is what I did for my project). 
-       <p>Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>` </p>
-			 <p>If you want the controllers to be under "devise" then no name needs to be specified after "devise::controllers".</p>
+10. (Optional Step) If you plan on making modifications to the controllers, then you will want to enter the following command. If not, this step can be skipped (which is what I did for my project). <br>
+        
+				Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: `$rails generate devise:controllers <name_of_folder_other_than_devise>`<br>
+				
+			 If you want the controllers to be under "devise" then no name needs to be specified after "devise::controllers".<br>
 
 11. When using the generator to install devise from step 5, it installs an initializer that describes all of Devises' configuration options. Devise says *It is imperative that you take a look at it*. This file is: `config/initializers/devise.rb`
 
@@ -94,8 +99,8 @@ Running via Spring preloader in process 13854
        `$rake db:migrate`
 
 15. Verify the routes that were created by entering the following:<br>
-       `$rake routes`
-			 <p>The routes should look like the following:</p>
+       `$rake routes`<br>
+			 The routes should look like the following:<br>
        ```ruby
     Prefix Verb   URI Pattern                                                                              Controller#Action
                      root GET    /                                                                                        pages#index
@@ -201,15 +206,15 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 13. Select "Create Credentials" and choose "OAuth client ID".
 
 14. For our project purposes, we're creating a Web application. Since we're using the OAuth 2.0 protocol, Google generates an access token for our application, so select "Web Application".<br>
-            a) Fill in name for the Web Client<br>
-            b) The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". <br>
-						    The origin URL is the URI in which requests from a  browser. <br>
-								The redirect URI is, from the Google page: <br>
-								"*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"
-                 For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)<br>
-								 ```https://localhost:3000`
-                 For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.<br>
-            c) click "Create"<br>
+       1. Fill in name for the Web Client<br>
+       2. The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". <br>
+						The origin URL is the URI in which requests from a browser. <br>
+						The redirect URI is, from the Google page: <br>
+						"*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"<br>
+						For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)<br>
+						`https://localhost:3000`<br>
+             For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.<br>
+        3. Click "Create"<br>
 
 15. Google will now popup with a page that says "OAuth client". Copy the fields from "client ID" and "client secret"
 
@@ -227,10 +232,12 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 
 ## Configuring Devise to use the Correct Credentials
 
-## Setting up the routes
+### Setting up the routes
 
 18.  In `config/routes.rb` set up the routes required for devise by adding:<br>
-       `devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }`
+       ```ruby
+			 devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+			 ```
 		
 19. This lets Devise set the the OAuth2 callback to the omniauth_callback controller. We need to create `app/controllers/users/omniauth_callbacks_controller.rb`. 
        And then enter the following:
