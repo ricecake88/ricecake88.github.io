@@ -253,22 +253,22 @@ end
 
 
 22. Add the following to "app/controllers/application_controller.rb"
-       ```
+       ```ruby
     protect_from_forgery prepend: true
     before_action :authenticate_user!   
        ```
 
 23. Create "app/controllers/sessions_controller.rb"
-```
+       ```ruby
 class SessionsController < ApplicationController
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :authenticate_user!
 end
-```
+        ```
 
 24. Find the authorization path. You can view all the routes by entering: `$rake routes`
 25. Choose the prefix that includes the word "authorize" and "google_oauth2" in it. This is your google authorization path.
-26. Modify the link in which to sign into Google under **app/views/user/shared/links.html**.Remove the following code:
+26. Modify the link in which to sign into Google under `app/views/user/shared/links.html`. Remove the following code:
 ```
           <%- if devise_mapping.omniauthable? %>
               <%- resource_class.omniauth_providers.each do |provider| %>
