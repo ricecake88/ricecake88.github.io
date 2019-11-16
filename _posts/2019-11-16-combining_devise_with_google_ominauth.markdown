@@ -301,7 +301,7 @@ end
 27. Find the callback path by entering:
        `$rake routes`
 
-28. Choose the prefix that includes the word "callback", user_google_oauth2_omniauth_callback in our example. Copy its URI Pattern, which is /users/auth/google_oauth2/callback for our project.
+28. Choose the prefix that includes the word "callback", `user_google_oauth2_omniauth_callback` in our example. Copy its URI Pattern, which is `/users/auth/google_oauth2/callback` for our project.
 
 29.  Go back to the Developers Console. Select your project and click on "Credentials". Click on the pencil icon next to the name of your client which will edit its OAuth client. Append the URI Pattern to "https://localhost:3000", and add it as an entry. Remove the other entry. <br>
          Example:<br>
