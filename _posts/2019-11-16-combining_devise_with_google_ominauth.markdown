@@ -184,15 +184,15 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 13. Select "Create Credentials" and choose "OAuth client ID".
 
 14. For our project purposes, we're creating a Web application. Since we're using the OAuth 2.0 protocol, Google generates an access token for our application, so select "Web Application".<br>
-      1. Fill in name for the Web Client<br>
-      2. The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". <br>
-	  The origin URL is the URI in which requests from a browser. <br>
-	  The redirect URI is, from the Google page: <br>
-	  "*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"<br>
-	  For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)<br>
-         `https://localhost:3000`<br>
-           For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.<br>
-     3. Click "Create"<br>
+       1. Fill in name for the Web Client<br>
+       2. The page requires a link for "Authorized JavaScript origins" and "Authorized redirect URIs". <br>
+						The origin URL is the URI in which requests from a browser. <br>
+						The redirect URI is, from the Google page: <br>
+						"*For use with requests from a web server. This is the path in your application that users are redirected to after they have authenticated with Google. The path will be appended with the authorization code for access. Must have a  protocol. Cannot contain URL fragments or relative paths. Cannot be a public IP address.*"<br>
+						For Authorized JavaScript origins, enter  since we are running our web application off of our local machine on port 3000 (using the rails server)<br>
+						`https://localhost:3000`<br>
+             For Authorized redirect URIs, put the above URL as a placeholder. We will revisit this URL later.<br>
+        3. Click "Create"<br>
 
 15. Google will now popup with a page that says "OAuth client". Copy the fields from "client ID" and "client secret"
 
