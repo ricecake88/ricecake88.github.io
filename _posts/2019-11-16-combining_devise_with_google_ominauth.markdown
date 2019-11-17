@@ -53,7 +53,9 @@ Running via Spring preloader in process 13854
 
 8. In addition, it will print out the following instructions:
 
-9. Follow steps 1 through 4 of the instructions output. Note that for step 4, if you want your views to be located and associated with a different folder other than "devise", for example "users", you would want to enter in the following format: `$rails generate devise:views <name_of_folder_other_than_devise>`
+9. Follow steps 1 through 4 of the instructions output. Note that for step 4, if you want your views to be located and associated with a different folder other than "devise", for example "users", you would want to enter in the following format: <br>
+`$rails generate devise:views <name_of_folder_other_than_devise>`
+
 10. (Optional Step) If you plan on making modifications to the controllers, then you will want to enter the following command. If not, this step can be skipped (which is what I did for my project). <br>
         
       Similarly, the folder in which the controllers are located can be named differently than "devise" and would follow the following format: <br>
