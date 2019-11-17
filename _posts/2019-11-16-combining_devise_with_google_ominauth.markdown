@@ -29,13 +29,10 @@ Below are the instructions needed to use Devise individual sign-up / login with 
     `$bundle update`
 
 4. Choose where you are going to set up your root page. You can either create a new model/migration to work in conjunction with your resource to set a page as your root. <br>
-    
-		 **Example**:<br>
-		 
-		 Since this is for a new project, I decided that my root would be `pages#index`. <br>
-     
-		 This required I set up `app/controllers/pagescontroller.rb` with the following content:<br>
-      ```ruby
+    **Example**:<br>
+		Since this is for a new project, I decided that my root would be `pages#index`.<br>
+		This required I set up `app/controllers/pagescontroller.rb` with the following content:<br>
+     ```ruby
 class PagesController < ApplicationController
     def index
     end
@@ -220,7 +217,7 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 ### Setting Client Credentials to Environment Variables
 
 16. Going back to your development area, in the root folder '/', create a ".env" file. In the file, enter the following:
-       ```ruby
+        ```ruby
         GOOGLE_CLIENT_ID=<xxxxxx>
         GOOGLE_CLIENT_SECRET_KEY=<yyyyyy>
         ```
