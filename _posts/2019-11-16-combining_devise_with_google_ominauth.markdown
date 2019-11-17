@@ -199,12 +199,12 @@ update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:for
 ### Setting Client Credentials to Environment Variables
 
 16. Going back to your development area, in the root folder '/', create a ".env" file. In the file, enter the following:
-        ```ruby
+       ```ruby
         GOOGLE_CLIENT_ID=<xxxxxx>
         GOOGLE_CLIENT_SECRET_KEY=<yyyyyy>
-        ```
-        `xxxxxx` is the "client ID"  and `yyyyyy` is the "client secret" that you copied from the steps above from the Google Developer Console.<br>
-				Make sure you add "*.env*" to your "*.gitignore*" file so that it doesn't mistakenly get committed and added to the repo. However, just remember that every time you pull a new clone from your github repository (or similar service), you need to re-create the .env file again.
+       ```
+       `xxxxxx` is the "client ID"  and `yyyyyy` is the "client secret" that you copied from the steps above from the Google Developer Console.<br>
+			 Make sure you add "*.env*" to your "*.gitignore*" file so that it doesn't mistakenly get committed and added to the repo. However, just remember that every time you pull a new clone from your github repository (or similar service), you need to re-create the .env file again.
 
 ## Configuring Devise to use the Correct Credentials
 
