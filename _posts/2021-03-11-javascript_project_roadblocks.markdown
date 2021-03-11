@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Javascript Project Roadblocks"
-date:       2021-03-11 08:07:44 +0000
+date:       2021-03-11 03:07:45 -0500
 permalink:  javascript_project_roadblocks
 ---
 
@@ -40,7 +40,7 @@ I got stuck trying to figure out how to authenticate a user using the js/html/ra
 
 Authentication is hard. It has always been the area where I have the most difficulty time and time again, and this time it was no different. I stagnated in this area for months, and found it hard to motivate myself to work very long when I just couldn't figure out how to authorize my user. Online guides show how to integrate JSON web tokens in a very basic setup. 
 
-Once I finally figured out how to Authenticate and Authorize my user to login, I had to figure out how to continue to make requests to the server allowing myself to stay authenticated and authorized, and realized that the way to continue to send requests to the server was to attach the authorization token to the configuration file in the headers. I had to search deep into the help forums to find this, as it wasn't obvious to me how to get the information passed through and none of the web tutorials mentioned having to include it in all of the configs sent to fetch. Now, looking back it makes sense, but I at the time I was fairly lost, and it got me fairly frustrated. I was moving through this portion like a snail.
+Once I finally figured out how to Authenticate and Authorize my user to login, I had to figure out how to continue to make requests to the server allowing myself to stay authenticated and authorized, and realized that the way to continue to send requests to the server was to attach the authorization token to the configuration file in the headers. I had to search deep into the help forums to find this, as it wasn't obvious to me how to get the information passed through and none of the web tutorials mentioned having to include it in all of the configs sent to fetch. Now, looking back it makes sense, but at the time I was fairly lost, and it got me fairly frustrated. I was moving through this portion like a snail.
 
 ### Time
 
