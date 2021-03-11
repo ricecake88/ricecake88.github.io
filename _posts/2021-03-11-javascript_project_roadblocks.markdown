@@ -52,7 +52,7 @@ This wasn't so much a road block, but took a long time to do. I basically wrote 
 
 However, it was a challenge to figure out where some of the rendering of some of my habit views should go. For example, the summary draws upon the data from both Habit and HabitRecord, but there is no modifications allowed, and is only used as a display of data. I wasn't sure where that should have went. As a newbie to javascript, I hope that as I continue on the journey of learning about javascript, I will have a better idea of how to better organize frontend code, whereas I feel backend code has better structure that lends itself to being more RESTful than frontend.
 
-As for UI, I've always been a stickler of what accounts for good UI, and there are still a few things that I feel could be improved on with the existing way my habit tracker is structured with its current components, not accounting for some of the stretch goals I never got to. The work is never done! But, I'll shelve it, write some todos later one and come back to it once I've graduated, me thinks.
+As for UI, I've always been a stickler of what accounts for good UI, and there are still a few things that I feel could be improved on with the existing way my habit tracker is structured with its current components, not accounting for some of the stretch goals I never got to. The work is never done! But, I'll shelve it, write some todos later on and come back to it once I've graduated, me thinks.
 
 
 # Summary
