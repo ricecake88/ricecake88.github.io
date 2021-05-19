@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "My React Debugging Journey"
-date:       2021-05-19 06:34:24 +0000
+date:       2021-05-19 02:34:24 -0400
 permalink:  my_react_debugging_journey
 ---
 
@@ -14,7 +14,7 @@ I encountered plenty of roadblocks, from forgetting how to send nested objects t
 
 A value in an uncontrolled input element can only hold an initial value. If one needs that value to be updated, a kind of hack is to specify the key in the input of the value that needs to be updated, despite it not really needing a key - in order to make it unique. This was what happened when I needed the default value of my input for number of breaths to be what the pose was initally set to. `<input ...defaultValue={this.props.poseInseq}>` Whenever I tried to change the value in the input, it refused to update and show the value. I then had to add a key of some sort: `<input key={this.props.poseInSeq.num_breaths}` in order for it to display what I had entered. This one stumped me for a long time as I wouldn't have known this was the behaviour had I not googled to understand what was happening.
 
-src/components/sequences/SeqPoseDraggableEdit.js
+    src/components/sequences/SeqPoseDraggableEdit.js
 
 ```
                     <input key={this.props.poseInSeq.num_breaths}
@@ -60,7 +60,7 @@ I needed a way to display errors, and initially had started with handling displa
 
 I did discover that I could set an error message  that was fairly controlled by setting all my actions to return a Promise that could be caught within the components and set a local error state with whatever string I set. This was a valid method in handling errors but I decided upon using an **errorReducer** that would handle all form handling errors in addition to authentication/unauthorized errors. I created a function that would be called whenever the status returned from the server was other than `OK` or `200` (`handleServerError`). From there, it would dispatch an `'ERROR'`, or a `'NOT_AUTHENTICATED'` error depending on the code status. Then wherever I had placed the `<Error>` presentational component, the component would display the error. I liked this solution best, that way the error can be controlled through the global state, vs the local component state which can get cumbersome to implement as an application scales.
 
-src/actions/errors.js
+    src/actions/errors.js
 
 ```
 export const handleServerError = (response, dispatch) => {
@@ -80,7 +80,7 @@ export const handleServerError = (response, dispatch) => {
 
 I noticed that if I switched between users, I would see the previous user's data flash on my screen before loading the current user's state which is a definite no no. By dispatching a '`CLEAR_STORE`' in the `logout` and `withAuth` action methods that set the state back to the intial state in each of the reducers, I was able to fix this issue.
 
-src/reducers/sequences.js
+    src/reducers/sequences.js
 ```
 
 ...reducer...
