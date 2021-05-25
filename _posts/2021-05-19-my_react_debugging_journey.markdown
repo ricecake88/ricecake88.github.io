@@ -80,7 +80,7 @@ export const handleServerError = (response, dispatch) => {
 
 I noticed that if I switched between users, I would see the previous user's data flash on my screen before loading the current user's state which is a definite no no. By dispatching a '`CLEAR_STORE`' in the `logout` and `withAuth` action methods that set the state back to the intial state in each of the reducers, I was able to fix this issue.
 
-```src/reducers/sequences.js```
+    src/reducers/sequences.js
 		
 ```
 
