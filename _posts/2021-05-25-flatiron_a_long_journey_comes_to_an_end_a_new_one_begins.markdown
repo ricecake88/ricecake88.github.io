@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Flatiron: A long journey comes to an end, a new one begins?"
-date:       2021-05-25 05:37:36 +0000
+date:       2021-05-25 01:37:36 -0400
 permalink:  flatiron_a_long_journey_comes_to_an_end_a_new_one_begins
 ---
 
